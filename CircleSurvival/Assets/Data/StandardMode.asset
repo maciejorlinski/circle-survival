@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0693062dea97fdd4a88f63265ef32ada, type: 3}
   m_Name: StandardMode
   m_EditorClassIdentifier: 
-  startingFrequency: 0.05
-  frequencyIncreaseOverTime: 0.005
+  startingFrequency: 0.005
+  frequencyIncreaseOverTime: 0.001
   blackCircleFrequency: 0.1
   startingLifeTimeRange: {x: 2, y: 4}
-  lifeTimeRangeModifierOverTime: {x: -0.01, y: -0.02}
+  lifeTimeRangeModifierOverTime: {x: -0.005, y: -0.01}

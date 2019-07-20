@@ -5,20 +5,39 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Circle : MonoBehaviour, IPointerClickHandler {
+    #region Inspector
+    public CircleType circleType;
+    #endregion
+
+    public event Action<Circle> Died;
+
     private Timer timer;
-    private Action onClick;
+    private CircleCallback onClick;
+    private CircleCallback onTimeout;
 
     private void Awake() {
         timer = GetComponent<Timer>();
     }
 
-    public void Initialize(float lifeTime, Action onClick, Action onTimeout) {
-        timer.Set(lifeTime, onTimeout);
+    private void Die() {
+        Died?.Invoke(this);
+        Died = null;
+    }
+
+    public void Initialize(float lifeTime, CircleCallback onClick, CircleCallback onTimeout) {
+        timer.Set(lifeTime, TimedOut);
         this.onClick = onClick;
+        this.onTimeout = onTimeout;
+    }
+
+    private void TimedOut() {
+        onTimeout?.Invoke(this.circleType);
+        Die();
     }
 
     public void OnPointerClick(PointerEventData eventData) {
         timer.Stop();
-        onClick?.Invoke();
+        onClick?.Invoke(this.circleType);
+        Die();
     }
 }

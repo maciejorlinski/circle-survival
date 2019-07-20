@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ScoreWidget : MonoBehaviour {
     #region Inspector
     public string emptyScoreText = "None";
-    public string scoreFormat = "{0}h {1}m {2}s";
     public Text score;
     #endregion
 
@@ -15,6 +14,10 @@ public class ScoreWidget : MonoBehaviour {
 
     private string FormatHighScore(float value) {
         var span = TimeSpan.FromSeconds(value);
-        return string.Format(scoreFormat, Math.Floor(span.TotalHours), span.Minutes, span.Seconds);
+        if (span.TotalMinutes >= 1)
+            return string.Format("{0}m {1}s", Math.Floor(span.TotalMinutes), span.Seconds);
+        else
+            return string.Format("{0}s", Math.Floor(span.TotalSeconds));
+
     }
 }

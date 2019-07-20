@@ -190,7 +190,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3h 15m
+  m_Text: 1m 42s
 --- !u!222 &2591403
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -250,7 +250,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emptyScoreText: None
-  scoreFormat: '{0}h {1}m {2}s'
   score: {fileID: 2591402}
 --- !u!1 &329126960
 GameObject:

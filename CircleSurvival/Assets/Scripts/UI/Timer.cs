@@ -11,8 +11,11 @@ public class Timer : MonoBehaviour {
     private float goal;
     private IEnumerator countdown;
     private float time;
+    private GameClock gameClock;
 
     public void Set(float goal, Action callback) {
+        if (gameClock == null)
+            gameClock = FindObjectOfType<GameClock>();
         this.goal = goal;
         countdown = Countdown(callback);
         StartCoroutine(countdown);
@@ -28,7 +31,7 @@ public class Timer : MonoBehaviour {
     private IEnumerator Countdown(Action callback) {
         time = 0;
         while (time < goal) {
-            time += Time.deltaTime;
+            time += gameClock.DeltaTime;
             if (image != null)
                 image.fillAmount = time / goal;
             yield return null;
