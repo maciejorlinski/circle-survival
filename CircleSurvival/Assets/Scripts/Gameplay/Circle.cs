@@ -12,11 +12,14 @@ public class Circle : MonoBehaviour, IPointerClickHandler {
     public event Action<Circle> Died;
 
     private Timer timer;
+    private CircleAnimator animator;
     private CircleCallback onClick;
     private CircleCallback onTimeout;
 
     private void Awake() {
         timer = GetComponent<Timer>();
+        animator = GetComponent<CircleAnimator>();
+        animator.FinishedHiding += Die;
     }
 
     private void Die() {
@@ -28,16 +31,17 @@ public class Circle : MonoBehaviour, IPointerClickHandler {
         timer.Set(lifeTime, TimedOut);
         this.onClick = onClick;
         this.onTimeout = onTimeout;
+        animator.Show();
     }
 
     private void TimedOut() {
         onTimeout?.Invoke(this.circleType);
-        Die();
+        animator.HideAfterTimeout();
     }
 
     public void OnPointerClick(PointerEventData eventData) {
         timer.Stop();
         onClick?.Invoke(this.circleType);
-        Die();
+        animator.HideAfterClick();
     }
 }
