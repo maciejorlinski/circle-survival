@@ -11,6 +11,10 @@ public class CircleSpawner : MonoBehaviour {
     public GameClock gameClock;
     #endregion
 
+    private const int MAX_ACTIVE_CIRCLES = 35;
+
+    public bool CanSpawnCircle => activeCircles < MAX_ACTIVE_CIRCLES;
+
     private float timeSinceStartedSpawning;
     private SpawningModel model;
     private CirclePlacer circlePlacer;
@@ -18,6 +22,8 @@ public class CircleSpawner : MonoBehaviour {
 
     private CircleCallback circleClickedCallback;
     private CircleCallback circleTimedOutCallback;
+
+    private int activeCircles;
 
     public void SetCallbacks(CircleCallback circleClickedCallback, CircleCallback circleTimedOutCallback) {
         this.circleClickedCallback = circleClickedCallback;
@@ -38,18 +44,22 @@ public class CircleSpawner : MonoBehaviour {
         if (!gameClock.IsRunning)
             return;
         timeSinceStartedSpawning += gameClock.DeltaTime;
-        var circleData = model.GetCircleData(timeSinceStartedSpawning);
-        if (circleData.circleType != CircleType.None)
-            SpawnCircle(circleData);
+        if (CanSpawnCircle) {
+            var circleData = model.GetCircleData(timeSinceStartedSpawning);
+            if (circleData.circleType != CircleType.None)
+                SpawnCircle(circleData);
+        }
     }
     
     private void SpawnCircle(SpawningModel.CircleData circleData) {
         var circle = circlePlacer.PlaceCircleFromPool(pools[circleData.circleType]);
         circle.Initialize(circleData.lifeTime, circleClickedCallback, circleTimedOutCallback);
         circle.Died += HandleCircleDied;
+        activeCircles++;
     }
 
     private void HandleCircleDied(Circle circle) {
         pools[circle.circleType].Despawn(circle.gameObject);
+        activeCircles--;
     }
 }
