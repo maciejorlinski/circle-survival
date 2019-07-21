@@ -24,7 +24,7 @@ public class ObjectPool : MonoBehaviour {
     }
 
     private void Expand() {
-        GameObject newInstance = Instantiate<GameObject>(prefab, this.transform.parent);
+        GameObject newInstance = Instantiate<GameObject>(prefab, this.transform);
         newInstance.gameObject.name += string.Format(" {0}", ++numberOfElements);
         newInstance.gameObject.SetActive(false);
         pool.Enqueue(newInstance);
