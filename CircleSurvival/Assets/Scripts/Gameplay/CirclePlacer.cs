@@ -8,6 +8,7 @@ public class CirclePlacer : MonoBehaviour {
     #region Inspector
     public RectTransform gameArea;
     public GraphicRaycaster raycaster;
+    public CanvasScaler canvasScaler;
     #endregion
 
     public Circle PlaceCircleFromPool(ObjectPool circlePool) {
@@ -32,12 +33,11 @@ public class CirclePlacer : MonoBehaviour {
         return GetAnchoredPosition(size, position);
     }
 
-    private static Vector2 GetAnchoredPosition(Vector2 size, Vector2 position) {
-        return position - 0.5f * size;
-    }
+    private static Vector2 GetAnchoredPosition(Vector2 size, Vector2 position) => position - 0.5f * size;
 
     private Vector2 GetScreenPosition(Vector2 size, Vector2 position) {
-        var gameAreaCenterInScreenSpace = new Vector2(Screen.width, Screen.height) * 0.5f + gameArea.anchoredPosition;
-        return position + gameAreaCenterInScreenSpace - size * 0.5f;
+        Vector2 scaleFactor = new Vector2(Screen.width, Screen.height) / canvasScaler.referenceResolution;
+        var gameAreaCenterInScreenSpace = canvasScaler.referenceResolution * 0.5f + gameArea.anchoredPosition;
+        return (position + gameAreaCenterInScreenSpace - size * 0.5f) * scaleFactor;
     }
 }
