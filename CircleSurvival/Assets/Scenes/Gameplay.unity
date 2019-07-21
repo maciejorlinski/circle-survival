@@ -409,7 +409,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 356256800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a49b80b4fec46ed44bdc221e4e14b3af, type: 3}
+  m_Script: {fileID: 11500000, guid: dd49bb45e376dfc448ce51f97849ac1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 1885355068}
@@ -1545,8 +1545,8 @@ GameObject:
   - component: {fileID: 1885355066}
   - component: {fileID: 1885355065}
   - component: {fileID: 1885355064}
-  - component: {fileID: 1885355068}
   - component: {fileID: 1885355069}
+  - component: {fileID: 1885355068}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1646,7 +1646,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1885355063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 070067903ef064d42b95bf766a069ccb, type: 3}
+  m_Script: {fileID: 11500000, guid: 88c2bd6f7dada494d8a877cbc15ce603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hud: {fileID: 383543114}
