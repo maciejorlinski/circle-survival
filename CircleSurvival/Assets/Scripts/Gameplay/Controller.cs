@@ -16,6 +16,10 @@ namespace Gameplay {
             circleSpawner.SetCallbacks(CircleClicked, CircleTimedout);
         }
 
+        private void Start() {
+            gameClock.Toggle(true);
+        }
+
         public void GameOver() {
             gameClock.Toggle(false);
             if (model.NewHighScore)
@@ -30,9 +34,6 @@ namespace Gameplay {
         private void Update() {
             model.IncreaseGameTime(gameClock.DeltaTime);
             view.UpdateScore(model.CurrentScore);
-
-            if (Input.GetKeyDown(KeyCode.Space))
-                gameClock.Toggle(true);
         }
 
         private void CircleClicked(CircleType circleType) {
